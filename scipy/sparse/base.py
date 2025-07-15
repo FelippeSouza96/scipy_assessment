@@ -60,9 +60,11 @@ MAXPRINT = 50
 
 
 class spmatrix(object):
-    """ This class provides a base class for all sparse matrices.  It
-    cannot be instantiated.  Most of the work is provided by subclasses.
-    """
+   def __round__(self, ndigits=0):
+        """Round the non-zero values of the sparse matrix."""
+        from numpy import round as np_round
+        rounded_data = np_round(self.data, ndigits)
+        return self.__class__((rounded_data, self.indices.copy(), self.indptr.copy()), shape=self.shape)
 
     __array_priority__ = 10.1
     ndim = 2
