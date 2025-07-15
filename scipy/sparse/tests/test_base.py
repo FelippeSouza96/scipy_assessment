@@ -4727,3 +4727,12 @@ class Test64Bit(object):
 
         check_limited()
         check_unlimited()
+import numpy as np
+from numpy.testing import assert_array_equal
+from scipy.sparse import csr_matrix
+
+def test_round_sparse_matrix():
+    m = csr_matrix([[1.234, 0, 2.876], [0, 0, 3.145]])
+    m_rounded = round(m, 1)
+    expected = np.array([[1.2, 0, 2.9], [0, 0, 3.1]])
+    assert_array_equal(m_rounded.toarray(), expected)
